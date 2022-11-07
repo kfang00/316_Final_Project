@@ -37,11 +37,14 @@ const HomeScreen = () => {
             }
             </List>;
     }
+
+    let addListButtonStyle = store.currentModal === "NONE" ? "white": "#113257";
+    let addListButtonStyleBackground = store.currentModal === "NONE" ? "#aedae6": "#2365b0";
     return (
         <div id="playlist-selector">
             <div id="list-selector-heading">
             <Fab 
-                style={{color: "white", width: "45px", height: "45px", backgroundColor: "#aedae6"}}
+                style={{color: `${addListButtonStyle}`, width: "45px", height: "45px", backgroundColor: `${addListButtonStyleBackground}`}}
                 aria-label="add"
                 id="add-list-button"
                 onClick={handleCreateNewList}

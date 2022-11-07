@@ -96,6 +96,8 @@ export default function AppBanner() {
             return <AccountCircle />;
     }
 
+    let homeButtonStyle = store.currentModal === "NONE" ? "white": "#2c446e";
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -106,7 +108,7 @@ export default function AppBanner() {
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}                        
                     >
-                        <Link onClick={handleClickHome} style={{ textDecoration: 'none', color: 'white' }} to='/'>⌂</Link>
+                        <Link onClick={handleClickHome} style={{textDecoration: 'none', color: `${homeButtonStyle}`}} to='/'>⌂</Link>
                     </Typography>
                     <Box sx={{ flexGrow: 1 }}>{editToolbar}</Box>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
