@@ -19,7 +19,7 @@ function Statusbar() {
         text = ""
     }
     return (
-        <div id="playlister-statusbar">
+        <div id="top5-statusbar">
             <Typography variant="h4">{text}</Typography>
         </div>
     );
