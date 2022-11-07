@@ -41,14 +41,14 @@ const HomeScreen = () => {
         <div id="playlist-selector">
             <div id="list-selector-heading">
             <Fab 
-                color="primary" 
+                style={{color: "white", width: "45px", height: "45px", backgroundColor: "#aedae6"}}
                 aria-label="add"
                 id="add-list-button"
                 onClick={handleCreateNewList}
             >
                 <AddIcon />
             </Fab>
-                <Typography variant="h2">Your Lists</Typography>
+                <Typography variant="h3" style = {{fontWeight: "400", fontSize: "32px", marginLeft: "10px", color: "white"}} >Your Lists</Typography>
             </div>
             <div id="list-selector-list">
                 {
