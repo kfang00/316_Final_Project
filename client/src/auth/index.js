@@ -10,13 +10,16 @@ export const AuthActionType = {
     GET_LOGGED_IN: "GET_LOGGED_IN",
     LOGIN_USER: "LOGIN_USER",
     LOGOUT_USER: "LOGOUT_USER",
-    REGISTER_USER: "REGISTER_USER"
+    REGISTER_USER: "REGISTER_USER",
+    ACCOUNT_ERROR: "ACCOUNT_ERROR"
 }
 
 function AuthContextProvider(props) {
     const [auth, setAuth] = useState({
         user: null,
-        loggedIn: false
+        loggedIn: false,
+        showAccountErrorModal: false,
+        errorMessage: null
     });
     const history = useHistory();
 
@@ -30,25 +33,37 @@ function AuthContextProvider(props) {
             case AuthActionType.GET_LOGGED_IN: {
                 return setAuth({
                     user: payload.user,
-                    loggedIn: payload.loggedIn
+                    loggedIn: payload.loggedIn,
+                    ...auth
                 });
             }
             case AuthActionType.LOGIN_USER: {
                 return setAuth({
                     user: payload.user,
-                    loggedIn: true
+                    loggedIn: true,
+                    ...auth
                 })
             }
             case AuthActionType.LOGOUT_USER: {
                 return setAuth({
                     user: null,
-                    loggedIn: false
+                    loggedIn: false,
+                    ...auth
                 })
             }
             case AuthActionType.REGISTER_USER: {
                 return setAuth({
                     user: payload.user,
-                    loggedIn: true
+                    loggedIn: true,
+                    ...auth
+                })
+            }
+            case AuthActionType.ACCOUNT_ERROR: {
+                return setAuth({
+                    user: null,
+                    loggedIn: false,
+                    showAccountErrorModal: payload.showAccountErrorModal,
+                    errorMessage: payload.errorMessage
                 })
             }
             default:
@@ -70,29 +85,51 @@ function AuthContextProvider(props) {
     }
 
     auth.registerUser = async function(firstName, lastName, email, password, passwordVerify) {
-        const response = await api.registerUser(firstName, lastName, email, password, passwordVerify);      
-        if (response.status === 200) {
+        try {
+            const response = await api.registerUser(firstName, lastName, email, password, passwordVerify);      
+            if (response.status === 200) {
+                authReducer({
+                    type: AuthActionType.REGISTER_USER,
+                    payload: {
+                        user: response.data.user
+                    }
+                })
+                history.push("/");
+            }
+        } catch (err) {
             authReducer({
-                type: AuthActionType.REGISTER_USER,
+                type: AuthActionType.ACCOUNT_ERROR,
                 payload: {
-                    user: response.data.user
+                    showAccountErrorModal: true,
+                    errorMessage: err.response.data.errorMessage
                 }
             })
-            history.push("/");
         }
     }
 
     auth.loginUser = async function(email, password) {
-        const response = await api.loginUser(email, password);
-        if (response.status === 200) {
+        try {
+            const response = await api.loginUser(email, password);
+        
+            if (response.status === 200) {
+                authReducer({
+                    type: AuthActionType.LOGIN_USER,
+                    payload: {
+                        user: response.data.user
+                    }
+                })
+                history.push("/");
+            } 
+        } catch (err) {
             authReducer({
-                type: AuthActionType.LOGIN_USER,
+                type: AuthActionType.ACCOUNT_ERROR,
                 payload: {
-                    user: response.data.user
+                    showAccountErrorModal: true,
+                    errorMessage: err.response.data.errorMessage
                 }
             })
-            history.push("/");
         }
+        
     }
 
     auth.logoutUser = async function() {
@@ -114,6 +151,16 @@ function AuthContextProvider(props) {
         }
         console.log("user initials: " + initials);
         return initials;
+    }
+
+    auth.hideAccountErrorModal = () => {
+        authReducer({
+            type: AuthActionType.ACCOUNT_ERROR,
+            payload: {
+                showAccountErrorModal: false,
+                errorMessage: null
+            }
+        });        
     }
 
     return (
