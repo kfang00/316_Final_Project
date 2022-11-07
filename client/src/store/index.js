@@ -332,6 +332,13 @@ function GlobalStoreContextProvider(props) {
         }
         getListToDelete(id);
     }
+    store.unmarkListForDeletion = function () {
+        storeReducer({
+            type: GlobalStoreActionType.MARK_LIST_FOR_DELETION,
+            payload: {id: null, playlist: null}
+        });
+        store.hideModals();
+    }
     store.deleteList = function (id) {
         async function processDelete(id) {
             let response = await api.deletePlaylistById(id);

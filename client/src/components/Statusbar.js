@@ -15,12 +15,12 @@ function Statusbar() {
     let text = "";
     if (store.currentList)
         text = store.currentList.name;
-    if (!auth.loggedIn) {
-        text = ""
-    }
+
     return (
-        <div id="top5-statusbar">
-            <Typography variant="h4">{text}</Typography>
+        <div>
+            { auth.loggedIn ? <div id="top5-statusbar">
+                <Typography variant="h4">{text}</Typography>
+            </div> : null }
         </div>
     );
 }
