@@ -304,6 +304,7 @@ input {
   position: relative;
   max-width: 800px;
   max-height: 80vh;
+  min-width: 410px;
   background: #d1e6ec;
   overflow: auto;
   cursor: default;
@@ -362,6 +363,15 @@ input {
 
 #confirm-cancel-container {
   text-align: center;
+}
+
+.modal-prompt {
+  padding: 5px 0px;
+  font-size: 1.2em;
+}
+
+.modal-textfield {
+  width: 100%;
 }
 
 /* ANIMATIONS
