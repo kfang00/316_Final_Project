@@ -23,6 +23,10 @@ function WorkspaceScreen() {
     else if (store.isRemoveSongModalOpen()) {
         modalJSX = <MUIRemoveSongModal />;
     }
+
+    if (store.currentList === null) {
+        store.history.push("/");
+    }
     return (
         <Box>
         <List 
@@ -30,7 +34,7 @@ function WorkspaceScreen() {
             sx={{ width: '100%', bgcolor: 'background.paper'}}
         >
             {
-                store.currentList.songs !== null ? store.currentList.songs.map((song, index) => (
+                store.currentList !== null ? store.currentList.songs.map((song, index) => (
                     <SongCard
                         id={'playlist-song-' + (index)}
                         key={'playlist-song-' + (index)}
