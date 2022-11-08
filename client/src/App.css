@@ -55,14 +55,15 @@ body {
 }
 
 #splash-screen {
-  background-image: linear-gradient(to bottom, #b8b808, #636723);
+  /* background-color: #aedae6; */
+  background-image: linear-gradient(to bottom, #aedae6, #daaee6);
   color: white;
   font-size: 5vw;
   border-color: black;
   border-width: 2px;
   border-style: solid;
   border-radius: 10px;
-  padding-left: 10%;
+  /* padding-left: 10%; */
   padding-top: 5%;
   padding-bottom: 5%;
   height:70%;
