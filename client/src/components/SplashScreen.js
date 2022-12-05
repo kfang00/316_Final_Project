@@ -1,12 +1,16 @@
 import Button from '@mui/material/Button';
 import Copyright from './Copyright';
 import { Link } from 'react-router-dom';
+import { GlobalStoreContext } from '../store'
+import { useContext } from 'react';
 
 export default function SplashScreen() {
-    function handleGuest() {
+    const { store } = useContext(GlobalStoreContext);
 
+    function handleGuest() {
+        store.setView("ALL_LISTS");
     }
-    
+
     return (
         <div id="splash-screen">
             <img id = "splash-screen-logo" src = '/images/playlisterlogo.png' />
@@ -25,7 +29,7 @@ export default function SplashScreen() {
                 <Button
                     id='guest-button'
                     onClick={handleGuest}>
-                        <Link style = {{color: "white", textDecoration: "none"}} to='/'>CONTINUE AS GUEST</Link>
+                        <Link style = {{color: "rgb(216, 87, 109)", textDecoration: "none"}} to='/'>CONTINUE AS GUEST</Link>
                 </Button>
             </div>
             <Copyright />
