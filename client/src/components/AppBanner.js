@@ -93,7 +93,7 @@ export default function AppBanner() {
         if (loggedIn) 
             return <div>{userInitials}</div>;
         else
-            return <AccountCircle style={{ fontSize: 40 }} />;
+            return <AccountCircle style={{ fontSize: 36 }} />;
     }
 
     let homeButtonStyle = store.currentModal === "NONE" ? "white": "#2c446e";

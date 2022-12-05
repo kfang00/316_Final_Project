@@ -3,10 +3,7 @@ import { GlobalStoreContext } from '../store'
 import ListCard from './ListCard.js'
 import MUIDeleteModal from './MUIDeleteModal'
 
-import AddIcon from '@mui/icons-material/Add';
-import Fab from '@mui/material/Fab'
 import List from '@mui/material/List';
-import Typography from '@mui/material/Typography'
 /*
     This React component lists all the top5 lists in the UI.
     
@@ -19,9 +16,6 @@ const HomeScreen = () => {
         store.loadIdNamePairs();
     }, []);
 
-    function handleCreateNewList() {
-        store.createNewList();
-    }
     let listCard = "";
     if (store) {
         listCard = 
@@ -38,21 +32,8 @@ const HomeScreen = () => {
             </List>;
     }
 
-    let addListButtonStyle = store.currentModal === "NONE" ? "white": "#113257";
-    let addListButtonStyleBackground = store.currentModal === "NONE" ? "#aedae6": "#2365b0";
     return (
         <div id="playlist-selector">
-            <div id="list-selector-heading">
-            <Fab 
-                style={{color: `${addListButtonStyle}`, width: "45px", height: "45px", backgroundColor: `${addListButtonStyleBackground}`}}
-                aria-label="add"
-                id="add-list-button"
-                onClick={handleCreateNewList}
-            >
-                <AddIcon />
-            </Fab>
-                <Typography variant="h3" style = {{fontWeight: "400", fontSize: "32px", marginLeft: "10px", color: "white"}} >Your Lists</Typography>
-            </div>
             <div id="list-selector-list">
                 {
                     listCard

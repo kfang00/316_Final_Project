@@ -55,7 +55,7 @@ body {
 }
 
 #appbar-logo {
-  width: 150px;
+  width: 130px;
   margin-top: 10px;
 }
 
@@ -69,34 +69,35 @@ body {
   border-style: solid;
   border-radius: 10px;
   /* padding-left: 10%; */
-  padding-top: 5%;
-  padding-bottom: 5%;
-  height:70%;
+  /* padding-top: 5%; */
+  /* padding-bottom: 5%; */
+  padding: 60px;
+  height:100%;
   text-align: center;
   vertical-align: center;
 }
 
 #splash-screen-logo {
-  width: 140px;
+  width: 125px;
   padding: 7px 50px;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.547);
 }
 
 #splash-screen-welcome {
-  letter-spacing: 0.35em;
-  font-size: 0.55em;
+  letter-spacing: 14px;
+  font-size: 40px;
   margin: 20px;
 }
 
 #splash-screen-purpose {
-  font-size: 0.2em;
+  font-size: 14px;
   color: rgb(216, 87, 109);
 }
 
 #splash-screen-start {
   color: white;
-  font-size: 0.2em;
+  font-size: 14px;
   margin: 0px;
   padding-bottom: 12px;
 }
@@ -115,25 +116,25 @@ body {
 }
 
 #login-button, #signup-button {
-  letter-spacing: 0.2em;
+  letter-spacing: 3px;
   background-color: rgb(222, 114, 132);
   color: white;
   width: 270px;
   padding: 15px;
   margin: 6px;
   border-radius: 10px;
-  font-size: 0.16em;
+  font-size: 10px;
 }
 
 #guest-button {
-  letter-spacing: 0.2em;
+  letter-spacing: 3px;
   background-color: white;
   color: rgb(216, 87, 109);
   width: 270px;
   padding: 15px;
   margin: 6px;
   border-radius: 10px;
-  font-size: 0.16em;
+  font-size: 10px;
 }
 
 
@@ -193,22 +194,21 @@ body {
   font-size: 36pt;
 }
 
-#list-selector-heading {
-  position: absolute;
-  left: 39%;
-  top: 0.9%;
+#status-bar-add-list {
+  /* position: absolute; */
+  /* left: 39%;
+  bottom: 0.9%; */
   /* width: 100%; */
   /* height: 10%; */
-  text-align: center;
-  font-size: 24px;
+  /* text-align: center; */
   /* font-weight: bold; */
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
 }
 
 #add-list-button {
-  float: left;
+  /* float: left; */
 }
 
 #playlist-selector {
@@ -218,7 +218,7 @@ body {
 #list-selector-list {
   position: absolute;
   left: 0%;
-  top: 13%;
+  top: 16%;
   width: 100%;
   height: 77%;
   display: flex;
@@ -282,7 +282,7 @@ body {
 
 #edit-numbering {
   position: absolute;
-  left: 0%;
+  left: 0%; 
   top: 0%;
   width: 20%;
   height: 100%;

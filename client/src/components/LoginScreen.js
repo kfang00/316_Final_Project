@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import AuthContext from '../auth'
-
+import { GlobalStoreContext } from '../store'
 import Copyright from './Copyright'
 
 import Avatar from '@mui/material/Avatar';
@@ -19,6 +19,7 @@ import MUIAccountErrorModal from './MUIAccountErrorModal';
 
 export default function LoginScreen() {
     const { auth } = useContext(AuthContext);
+    const { store } = useContext(GlobalStoreContext);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -27,6 +28,13 @@ export default function LoginScreen() {
             formData.get('email'),
             formData.get('password')
         )
+        // .then(store.setView("HOME"));
+        // .then(function() {
+        //     if (auth.loggedIn) {
+        //         store.setView("HOME");
+        //     }
+        // })
+       
     };
 
     return (
