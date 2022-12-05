@@ -93,14 +93,14 @@ export default function AppBanner() {
         if (loggedIn) 
             return <div>{userInitials}</div>;
         else
-            return <AccountCircle />;
+            return <AccountCircle style={{ fontSize: 40 }} />;
     }
 
     let homeButtonStyle = store.currentModal === "NONE" ? "white": "#2c446e";
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
+            <AppBar position="static" sx={{ bgcolor: "white" }}>
                 <Toolbar>
                     <Typography                        
                         variant="h4"
@@ -108,7 +108,8 @@ export default function AppBanner() {
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}                        
                     >
-                        <Link onClick={handleClickHome} style={{textDecoration: 'none', color: `${homeButtonStyle}`}} to='/'>⌂</Link>
+                        {/* <Link onClick={handleClickHome} style={{textDecoration: 'none', color: `${homeButtonStyle}`}} to='/'>⌂</Link> */}
+                        <img id = "appbar-logo" src='/images/playlisterlogo.png' alt = "playlister-logo" />
                     </Typography>
                     <Box sx={{ flexGrow: 1 }}>{editToolbar}</Box>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
@@ -119,7 +120,7 @@ export default function AppBanner() {
                             aria-controls={menuId}
                             aria-haspopup="true"
                             onClick={handleProfileMenuOpen}
-                            color="inherit"
+                            sx = {{ color: "#d43d3d"}}
                         >
                             { getAccountMenu(auth.loggedIn) }
                         </IconButton>

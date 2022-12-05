@@ -10,6 +10,7 @@ export default function Copyright(props) {
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
+            - Created by Kayla Fang
         </Typography>
     );
 }

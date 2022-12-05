@@ -54,12 +54,17 @@ body {
   border-radius: 10px;
 }
 
+#appbar-logo {
+  width: 150px;
+  margin-top: 10px;
+}
+
 #splash-screen {
   /* background-color: #aedae6; */
-  background-image: linear-gradient(to bottom, #aedae6, #daaee6);
+  background-image: linear-gradient(to bottom right, #bdebf8, #fcd2eb, #f6bdca);
   color: white;
   font-size: 5vw;
-  border-color: black;
+  border-color: rgb(207, 143, 143);
   border-width: 2px;
   border-style: solid;
   border-radius: 10px;
@@ -70,6 +75,67 @@ body {
   text-align: center;
   vertical-align: center;
 }
+
+#splash-screen-logo {
+  width: 140px;
+  padding: 7px 50px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.547);
+}
+
+#splash-screen-welcome {
+  letter-spacing: 0.35em;
+  font-size: 0.55em;
+  margin: 20px;
+}
+
+#splash-screen-purpose {
+  font-size: 0.2em;
+  color: rgb(216, 87, 109);
+}
+
+#splash-screen-start {
+  color: white;
+  font-size: 0.2em;
+  margin: 0px;
+  padding-bottom: 12px;
+}
+
+#splash-screen-buttons {
+  margin: auto;
+  margin-top: 70px;
+  margin-bottom: 30px;
+  background-color: rgba(248, 181, 202, 0.681);
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  align-items: center;
+  padding: 30px;
+  border-radius: 40px;
+}
+
+#login-button, #signup-button {
+  letter-spacing: 0.2em;
+  background-color: rgb(222, 114, 132);
+  color: white;
+  width: 270px;
+  padding: 15px;
+  margin: 6px;
+  border-radius: 10px;
+  font-size: 0.16em;
+}
+
+#guest-button {
+  letter-spacing: 0.2em;
+  background-color: white;
+  color: rgb(216, 87, 109);
+  width: 270px;
+  padding: 15px;
+  margin: 6px;
+  border-radius: 10px;
+  font-size: 0.16em;
+}
+
 
 #edit-toolbar {
   background-color: transparent;
