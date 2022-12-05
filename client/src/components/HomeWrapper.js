@@ -8,7 +8,7 @@ export default function HomeWrapper() {
     const { auth } = useContext(AuthContext);
     const { store } = useContext(GlobalStoreContext);
     console.log("HomeWrapper auth.loggedIn: " + auth.loggedIn);
-    console.log(store.currentView);
+
     // useEffect(() => {
     //     if (auth.loggedIn) {
     //         console.log("hey");

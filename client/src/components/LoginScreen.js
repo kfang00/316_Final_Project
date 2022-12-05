@@ -28,13 +28,6 @@ export default function LoginScreen() {
             formData.get('email'),
             formData.get('password')
         )
-        // .then(store.setView("HOME"));
-        // .then(function() {
-        //     if (auth.loggedIn) {
-        //         store.setView("HOME");
-        //     }
-        // })
-       
     };
 
     return (
