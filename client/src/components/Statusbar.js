@@ -28,7 +28,7 @@ function Statusbar() {
         <div>
             { auth.loggedIn ? 
             <div id="top5-statusbar">
-                {(store.currentView === "HOME" || store.currentView === "SPLASH") ?
+                {(store.currentView === "HOME") ?
                     <div id="status-bar-add-list">
                         <Fab 
                             style={{color: `${addListButtonStyle}`, width: "45px", height: "45px", backgroundColor: `${addListButtonStyleBackground}`}}

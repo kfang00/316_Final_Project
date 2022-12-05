@@ -137,23 +137,23 @@ function GlobalStoreContextProvider(props) {
                     listNameActive: false,
                     listIdMarkedForDeletion: null,
                     listMarkedForDeletion: null,
-                    currentView: payload.view
+                    currentView: payload
                 })
             }
             // GET ALL THE LISTS SO WE CAN PRESENT THEM
             case GlobalStoreActionType.LOAD_ID_NAME_PAIRS: {
-                return setStore({
+                return setStore(prev => ({
                     currentModal : CurrentModal.NONE,
                     idNamePairs: payload,
                     currentList: null,
                     currentSongIndex: -1,
                     currentSong: null,
-                    newListCounter: store.newListCounter,
+                    newListCounter: prev.newListCounter,
                     listNameActive: false,
                     listIdMarkedForDeletion: null,
                     listMarkedForDeletion: null,
-                    currentView: store.currentView
-                });
+                    currentView: prev.currentView
+                }));
             }
             // PREPARE TO DELETE A LIST
             case GlobalStoreActionType.MARK_LIST_FOR_DELETION: {
@@ -336,7 +336,7 @@ function GlobalStoreContextProvider(props) {
         storeReducer({
             type: GlobalStoreActionType.SET_VIEW,
             payload: view
-        });
+        })
         store.loadIdNamePairs();
     }
 

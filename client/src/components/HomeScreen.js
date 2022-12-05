@@ -4,7 +4,7 @@ import ListCard from './ListCard.js'
 import MUIDeleteModal from './MUIDeleteModal'
 
 import List from '@mui/material/List';
-import { AppBar, Toolbar, Button, TextField, Box } from '@mui/material';
+import { AppBar, Toolbar, Button, TextField, Box, Menu, MenuItem } from '@mui/material';
 import { HomeOutlined, GroupsOutlined, PersonOutlineOutlined, SortOutlined } from '@mui/icons-material';
 /*
     This React component lists all the top5 lists in the UI.
@@ -23,17 +23,17 @@ const HomeScreen = () => {
 
     // Reponds to click on home button - calls store.setView("home")
     const handleClickHome = () => {
-
+        store.setView("HOME");
     }
 
     // Reponds to click on all lists button - calls store.setView("lists")
     const handleClickAllLists = () => {
-
+        store.setView("ALL_LISTS");
     }
 
     // Reponds to click on users button - calls store.setView("users")
     const handleClickUserLists = () => {
-
+        store.setView("USER_LISTS");
     }
     
     // Calls setSearchText()
@@ -43,10 +43,14 @@ const HomeScreen = () => {
     const handleEnterSearchText = () => {}
     
     // Responds to click on "sort by" to open drop-down menu
-    const handleSortByMenuOpen = (event) => {}
+    const handleSortByMenuOpen = (event) => {
+        setAnchorEl(event.currentTarget);
+    }
     
     // Responds to click away from menu, which closes it
-    const handleMenuClose = () => {}
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    }
     
     // Responds to click on "Name (A - Z)" - calls store.sortLists("name")
     const handleSortByName = () => {}
@@ -66,6 +70,61 @@ const HomeScreen = () => {
     useEffect(() => {
         store.loadIdNamePairs();
     }, []);
+
+    const sortByMenuHome = (
+        <Menu
+            anchorEl={anchorEl}
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            open={isMenuOpen}
+            onClose={handleMenuClose}
+        >
+            <MenuItem onClick={handleMenuClose}>By Creation Date (Old-New)</MenuItem>
+            <MenuItem onClick={handleMenuClose}>By Last Edit Date (New-Old)</MenuItem>
+            <MenuItem onClick={handleMenuClose}>By Name (A-Z)</MenuItem>
+        </Menu>
+    );
+
+    const sortByMenuOther = (
+        <Menu
+            anchorEl={anchorEl}
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            open={isMenuOpen}
+            onClose={handleMenuClose}
+        >
+            <MenuItem onClick={handleMenuClose}>Name (A-Z)</MenuItem>
+            <MenuItem onClick={handleMenuClose}>Publish Date (Newest)</MenuItem>
+            <MenuItem onClick={handleMenuClose}>Listens (High - Low)</MenuItem>
+            <MenuItem onClick={handleMenuClose}>Likes (High - Low) </MenuItem>
+            <MenuItem onClick={handleMenuClose}>Dislikes (High - Low)</MenuItem>
+        </Menu>
+    );
+
+    let sortByMenu = null;
+    if (isMenuOpen) {
+        if (store.currentView === 'HOME' || store.currentView === 'SPLASH') {
+            sortByMenu = sortByMenuHome
+        } else {
+            sortByMenu = sortByMenuOther
+        }
+    } else {
+        sortByMenu = null
+    }
 
     let listCard = "";
     if (store) {
@@ -120,6 +179,7 @@ const HomeScreen = () => {
                     </Button>
                 </Toolbar>
             </AppBar>
+            {sortByMenu}
             <div id = "home-layout">
                 <Box>
                     <div id="playlist-selector">

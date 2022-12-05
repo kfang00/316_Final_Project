@@ -9,16 +9,12 @@ export default function HomeWrapper() {
     const { store } = useContext(GlobalStoreContext);
     console.log("HomeWrapper auth.loggedIn: " + auth.loggedIn);
 
-    // useEffect(() => {
-    //     if (auth.loggedIn) {
-    //         console.log("hey");
-    //         store.setView("HOME");
-    //     };
-    // }, [auth.loggedIn]);
+    useEffect(() => {
+        if (auth.loggedIn) {
+            store.setView("HOME");
+        };
+    }, [auth.loggedIn]);
 
-    if (auth.loggedIn) {
-        return <HomeScreen />
-    }
     if (store.currentView === "SPLASH")
         return <SplashScreen />
     else

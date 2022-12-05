@@ -23,12 +23,12 @@ body {
 #root {
   background-color: var(--swatch-primary);
   font-family: "Lexend Exa";
-  /* position: absolute; */
-  position: static;
-  margin: auto;
+  position: absolute;
+  /* position: static; */
+  /* margin: auto; */
   width: 80%;
-  /* left: 10%; */
-  /* height: 85%; */
+  left: 10%;
+  height: 90%;
   top: 5%;
 }
 
@@ -185,12 +185,12 @@ body {
 }
 
 #top5-statusbar {
-  position: static;
+  /* position: static; */
 
-  /* position: absolute;
+  position: absolute;
   left: 0%;
-  top: 90%; */
-  margin-top: -70px;
+  top: 90%;
+  /* margin-top: -70px; */
   width: 100%;
   height: 70px;
   background-color: #aedae6;
@@ -229,7 +229,7 @@ body {
 
 #playlist-selector {
   overflow: scroll;
-  height: 80%;
+  height: 55vh;
   padding-top: 15px;
   margin: 12px 0px;
 }

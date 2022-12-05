@@ -13,7 +13,7 @@ export default function SplashScreen() {
 
     return (
         <div id="splash-screen">
-            <img id = "splash-screen-logo" src = '/images/playlisterlogo.png' />
+            <img id = "splash-screen-logo" src = '/images/playlisterlogo.png' alt=""/>
             <h2 id = "splash-screen-welcome">WELCOME</h2>
             <p id = "splash-screen-purpose">Playlister lets you create and share song playlists with others!</p>
             <div id = "splash-screen-buttons">
