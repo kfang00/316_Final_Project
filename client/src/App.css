@@ -23,10 +23,12 @@ body {
 #root {
   background-color: var(--swatch-primary);
   font-family: "Lexend Exa";
-  position: absolute;
+  /* position: absolute; */
+  position: static;
+  margin: auto;
   width: 80%;
-  left: 10%;
-  height: 90%;
+  /* left: 10%; */
+  /* height: 85%; */
   top: 5%;
 }
 
@@ -173,20 +175,24 @@ body {
 }
 
 #top5-workspace {
-  position: absolute;
+  position: static;
+  /* position: absolute; */
   left: 0%;
   top: 10%;
   width: 100%;
-  height: 80%;
+  /* height: 80%; */
   background-color: var(--swatch-accent);
 }
 
 #top5-statusbar {
-  position: absolute;
+  position: static;
+
+  /* position: absolute;
   left: 0%;
-  top: 90%;
+  top: 90%; */
+  margin-top: -70px;
   width: 100%;
-  height: 10%;
+  height: 70px;
   background-color: #aedae6;
   display: flex;
   align-items: center;
@@ -203,17 +209,33 @@ body {
   /* float: left; */
 }
 
+#home-layout {
+  display: grid;
+  grid-template-columns: 62% 38%;
+}
+
+#home-search-bar {
+  width: 50%;
+  margin-left: 5%;
+}
+
+#home-button, #all-lists-button, #user-lists-button, #sort-by-button {
+  color:rgb(216, 87, 109);
+}
+
+#sort-by-button {
+  margin-left: auto;
+}
+
 #playlist-selector {
   overflow: scroll;
-  width: 70%;
+  height: 80%;
+  padding-top: 15px;
+  margin: 12px 0px;
 }
 
 #list-selector-list {
-  /* position: static;
-  left: 0%;
-  top: 24%; */
   width: 100%;
-  height: 77%;
   display: flex;
   flex-direction: column;
   overflow: scroll;

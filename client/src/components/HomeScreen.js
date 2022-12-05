@@ -91,34 +91,32 @@ const HomeScreen = () => {
                         // disabled={false}
                         id='home-button'
                         onClick={handleClickHome}>
-                        <HomeOutlined />
+                        <HomeOutlined style={{ fontSize: 34 }}/>
                     </Button>
                     <Button
                         // disabled={false}
                         id='all-lists-button'
                         onClick={handleClickAllLists}>
-                        <GroupsOutlined />
+                        <GroupsOutlined style={{ fontSize: 34 }}/>
                     </Button>
                     <Button
                         // disabled={false}
                         id='user-lists-button'
                         onClick={handleClickUserLists}>
-                        <PersonOutlineOutlined />
+                        <PersonOutlineOutlined style={{ fontSize: 34 }}/>
                     </Button>
-                    <TextField
-                        // margin="normal"
-                        // fullWidth
-                        // id="email"
-                        // label="Email Address"
-                        // name="email"
-                        // autoComplete="email"
-                        // autoFocus
-                    />
+                    <div id = "home-search-bar">
+                        <TextField
+                            label="Search"
+                            fullWidth
+                        />
+                    </div>
                     <Button
                         // disabled={false}
                         id='sort-by-button'
                         onClick={handleSortByMenuOpen}>
-                        <SortOutlined />
+                        <p style = {{paddingRight: 10}}>SORT BY</p>
+                        <SortOutlined style={{ fontSize: 34 }}/>
                     </Button>
                 </Toolbar>
             </AppBar>
