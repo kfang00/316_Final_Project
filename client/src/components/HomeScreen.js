@@ -117,7 +117,7 @@ const HomeScreen = () => {
 
     let sortByMenu = null;
     if (isMenuOpen) {
-        if (store.currentView === 'HOME' || store.currentView === 'SPLASH') {
+        if (store.currentView === 'HOME') {
             sortByMenu = sortByMenuHome
         } else {
             sortByMenu = sortByMenuOther

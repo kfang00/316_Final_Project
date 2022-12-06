@@ -26,7 +26,7 @@ function Statusbar() {
     let addListButtonStyleBackground = store.currentModal === "NONE" ? "#aedae6": "#e3e3e3";
     return (
         <div>
-            { auth.loggedIn ? 
+            { store.currentView !== "SPLASH" ? 
             <div id="top5-statusbar">
                 {(store.currentView === "HOME") ?
                     <div id="status-bar-add-list">

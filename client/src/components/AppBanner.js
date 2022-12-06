@@ -28,6 +28,11 @@ export default function AppBanner() {
         setAnchorEl(null);
     };
 
+    const guestLogout = () => {
+        handleMenuClose();
+        store.logout();
+    };
+
     const handleLogout = () => {
         handleMenuClose();
         auth.logoutUser();
@@ -55,8 +60,8 @@ export default function AppBanner() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem component={Link} to='/login/' onClick={handleMenuClose}><Link to='/login/'>Login</Link></MenuItem>
-            <MenuItem component={Link} to='/register/' onClick={handleMenuClose}><Link to='/register/'>Create New Account</Link></MenuItem>
+            <MenuItem component={Link} to='/login/' onClick={guestLogout}><Link to='/login/'>Login</Link></MenuItem>
+            <MenuItem component={Link} to='/register/' onClick={guestLogout}><Link to='/register/'>Create New Account</Link></MenuItem>
         </Menu>
     );
     const loggedInMenu = 
@@ -109,7 +114,7 @@ export default function AppBanner() {
                         sx={{ display: { xs: 'none', sm: 'block' } }}                        
                     >
                         {/* <Link onClick={handleClickHome} style={{textDecoration: 'none', color: `${homeButtonStyle}`}} to='/'>⌂</Link> */}
-                        <img id = "appbar-logo" src='/images/playlisterlogo.png' alt = "playlister-logo" />
+                        <img onClick={handleClickHome} id = "appbar-logo" src='/images/playlisterlogo.png' alt = "playlister-logo" />
                     </Typography>
                     <Box sx={{ flexGrow: 1 }}>{editToolbar}</Box>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>

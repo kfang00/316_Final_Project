@@ -1,11 +1,8 @@
 import { useContext, useState } from 'react'
 import { GlobalStoreContext } from '../store'
-import Box from '@mui/material/Box';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import IconButton from '@mui/material/IconButton';
-import ListItem from '@mui/material/ListItem';
-import TextField from '@mui/material/TextField';
+import {Typography, TextField, ListItem, IconButton, Box} from "@mui/material";
 
 /*
     This is a card in our list of top 5 lists. It lets select
@@ -38,6 +35,15 @@ function ListCard(props) {
         event.stopPropagation();
         toggleEdit();
     }
+
+    function handleClickListItem(event) {
+        if (event.detail === 2) {
+            handleToggleEdit(event);
+        } else if (event.detail === 1) {
+            handleLoadList(event, idNamePair._id)
+        }
+    }
+
 
     function toggleEdit() {
         let newActive = !editActive;
@@ -73,35 +79,10 @@ function ListCard(props) {
     if (store.isListNameEditActive) {
         cardStatus = true;
     }
-    let cardElement =
-        <ListItem
-            id={idNamePair._id}
-            key={idNamePair._id}
-            className={selectClass}
-            sx={{ display: 'flex', p: 1 }}
-            style={{ width: '100%', fontSize: '22pt'}}
-            button
-            onClick={(event) => {
-                handleLoadList(event, idNamePair._id)
-            }}
-        >
-            <Box sx={{ p: 1, flexGrow: 1 }}>{idNamePair.name}</Box>
-            <Box sx={{ p: 1 }}>
-                <IconButton onClick={handleToggleEdit} aria-label='edit'>
-                    <EditIcon style={{fontSize:'30pt'}} />
-                </IconButton>
-            </Box>
-            <Box sx={{ p: 1 }}>
-                <IconButton onClick={(event) => {
-                        handleDeleteList(event, idNamePair._id)
-                    }} aria-label='delete'>
-                    <DeleteIcon style={{fontSize:'30pt'}} />
-                </IconButton>
-            </Box>
-        </ListItem>
 
+    let playlistName = idNamePair.name;
     if (editActive) {
-        cardElement =
+        playlistName =
             <TextField
                 margin="normal"
                 required
@@ -118,7 +99,39 @@ function ListCard(props) {
                 InputLabelProps={{style: {fontSize: 20}}}
                 autoFocus
             />
+    } else {
+        playlistName = idNamePair.name
     }
+
+    let cardElement = (
+        <ListItem
+            id={idNamePair._id}
+            key={idNamePair._id}
+            className={selectClass}
+            sx={{ display: 'flex', p: 1 }}
+            style={{ width: '100%', fontSize: '22pt'}}
+            button
+            onClick={handleClickListItem}
+        >
+            <Box sx={{ p: 1, flexGrow: 1 }}>{playlistName}</Box>
+            <Box sx={{ p: 1, flexGrow: 1 }}>{playlistName}</Box>
+            <Box>
+                <Typography></Typography>
+            </Box>
+            {/* <Box sx={{ p: 1 }}>
+                <IconButton onClick={handleToggleEdit} aria-label='edit'>
+                    <EditIcon style={{fontSize:'30pt'}} />
+                </IconButton>
+            </Box> */}
+            {/* <Box sx={{ p: 1 }}>
+                <IconButton onClick={(event) => {
+                        handleDeleteList(event, idNamePair._id)
+                    }} aria-label='delete'>
+                    <DeleteIcon style={{fontSize:'30pt'}} />
+                </IconButton>
+            </Box> */}
+        </ListItem>
+    )
     return (
         cardElement
     );
