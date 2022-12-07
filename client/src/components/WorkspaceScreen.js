@@ -3,9 +3,9 @@ import { useHistory } from 'react-router-dom'
 import SongCard from './SongCard.js'
 import MUIEditSongModal from './MUIEditSongModal'
 import MUIRemoveSongModal from './MUIRemoveSongModal'
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
+import {Box, List, Typography} from '@mui/material';
 import { GlobalStoreContext } from '../store/index.js'
+import EditToolbar from './EditToolbar';
 /*
     This React component lets us edit a loaded list, which only
     happens when we are on the proper route.
@@ -24,26 +24,30 @@ function WorkspaceScreen() {
         modalJSX = <MUIRemoveSongModal />;
     }
 
-    if (store.currentList === null) {
-        store.history.push("/");
-    }
+    // if (store.currentList === null) {
+    //     store.history.push("/");
+    // }
     return (
-        <Box>
+        <Box sx = {{width: "100%"}}>
         <List 
             id="playlist-cards" 
             sx={{ width: '100%', bgcolor: 'background.paper'}}
         >
-            {
-                store.currentList !== null ? store.currentList.songs.map((song, index) => (
+            { store.currentList ? (
+                store.currentList.isPublished ? 
+                store.currentList.songs.map((song, index) => (
+                    <Typography>{song.name}</Typography>
+                )) : store.currentList.songs.map((song, index) => (
                     <SongCard
                         id={'playlist-song-' + (index)}
                         key={'playlist-song-' + (index)}
                         index={index}
                         song={song}
                     />
-                )) : null
-            }
-         </List>            
+                ))
+            ) : null }
+        </List>
+        <EditToolbar />   
          { modalJSX }
          </Box>
     )

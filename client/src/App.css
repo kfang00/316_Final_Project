@@ -140,9 +140,9 @@ body {
 }
 
 
-#edit-toolbar {
-  background-color: transparent;
-  float: right;
+.edit-toolbar-bottom {
+  display: flex;
+  justify-content: space-between;
 }
 
 .top5-button,
@@ -244,9 +244,9 @@ body {
 .list-card,
 .selected-list-card,
 .unselected-list-card {
-  font-size: 18pt;
+  font-size: 14pt;
   margin: 10px;
-  padding: 20px;
+  padding: 17px;
   border-radius: 25px;
 }
 
@@ -260,7 +260,7 @@ body {
 
 .unselected-list-card:hover {
   cursor: pointer;
-  background-color: var(--swatch-contrast);
+  background-color: #123456;
   color: #2abae2;
 }
 
@@ -270,11 +270,15 @@ body {
 }
 
 .unselected-list-card {
-  background-color: var(--swatch-complement);
+  background-color: #aedae6;
 }
 
 .list-card-button {
   float: right;
+  font-size: 14pt;
+  background-color: transparent;
+  border: none;
+  font-weight: bold;
   /* transform: scale(2); */
 }
 
@@ -288,8 +292,10 @@ body {
 }
 
 #playlist-cards {
-  position: absolute;
-  height: 77%;
+  /* position: absolute;
+  height: 77%; */
+  margin: 12px 0px;
+  max-height: 230px;
   display: flex;
   flex-direction: column;
   overflow: scroll;

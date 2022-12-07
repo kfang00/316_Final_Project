@@ -1,8 +1,8 @@
 import { useContext, useState } from 'react'
 import { GlobalStoreContext } from '../store'
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
+import {DeleteIcon, EditIcon, ThumbUpOutlined, ThumbDownOutlined, KeyboardDoubleArrowUp,  KeyboardDoubleArrowDown}from '@mui/icons-material';
 import {Typography, TextField, ListItem, IconButton, Box} from "@mui/material";
+import WorkspaceScreen from "./WorkspaceScreen";
 
 /*
     This is a card in our list of top 5 lists. It lets select
@@ -15,6 +15,7 @@ function ListCard(props) {
     const { store } = useContext(GlobalStoreContext);
     const [editActive, setEditActive] = useState(false);
     const [text, setText] = useState("");
+    const [showSongs, showSongsToggle] = useState(false);
     const { idNamePair, selected } = props;
 
     function handleLoadList(event, id) {
@@ -71,6 +72,17 @@ function ListCard(props) {
         setText(event.target.value);
     }
 
+    function handleClickUsername() {
+        store.setView("USER_LISTS");
+    }
+
+    function handleShowSongs() {
+        // store.setCurrentList(idNamePair._id);
+        showSongsToggle(!showSongs);
+        // store.setCurrentList(idNamePair._id).then(showSongsToggle(!showSongs));
+        
+    }
+
     let selectClass = "unselected-list-card";
     if (selected) {
         selectClass = "selected-list-card";
@@ -108,15 +120,28 @@ function ListCard(props) {
             id={idNamePair._id}
             key={idNamePair._id}
             className={selectClass}
-            sx={{ display: 'flex', p: 1 }}
-            style={{ width: '100%', fontSize: '22pt'}}
+            sx={{ display: 'flex', p: 1, flexDirection: "column" }}
+            style={{ margin: "6px 2% 15px 2%", width: '96%', fontSize: '22pt', backgroundColor: "white", borderRadius: 10, marginBottom: 15}}
             button
             onClick={handleClickListItem}
         >
-            <Box sx={{ p: 1, flexGrow: 1 }}>{playlistName}</Box>
-            <Box sx={{ p: 1, flexGrow: 1 }}>{playlistName}</Box>
-            <Box>
-                <Typography></Typography>
+            <Box style = {{width: '100%', display: 'flex', justifyContent: "space-between"}}>
+                <div>
+                    <Box sx={{ p: 1, flexGrow: 1, fontSize: '16pt' }}>{playlistName}</Box>
+                    <Box sx={{ display: 'flex', flexGrow: 1, fontSize: '9pt', flexDirection: "row", padding: "1px 10px" }}>By: <Box sx = {{ textDecoration: "underline", color: "blue"}} onClick = {handleClickUsername}>{idNamePair.username}</Box></Box>
+                </div>
+                <div style = {{ height: "30px", display: "flex", fontSize: '9pt', alignItems: "center", padding: 5 }}>
+                    <ThumbUpOutlined /> <p style = {{padding: "10px 20px"}}>{idNamePair.likes}</p>
+                    <ThumbDownOutlined />  <p style = {{padding: "10px 20px"}}>{idNamePair.dislikes}</p>
+                </div>
+            </Box>
+            {showSongs ? <WorkspaceScreen /> : null }
+            <Box sx = {{display: "flex", width: "100%"}} style = {{justifyContent: "space-between", alignItems: "center"}}>
+                <Typography style = {{fontSize: "9pt", display: "flex", alignItems: "center", padding: "0px 10px"}}>Published: <p style = {{color: "green", padding: "0px 5px"}}>{`${new Date(idNamePair.publishedDate).toDateString()}`}</p></Typography>
+                <Typography style = {{fontSize: "9pt", display: "flex", alignItems: "center"}}>Listens: <p style = {{color: "red", padding: "0px 5px"}}>{`${idNamePair.listens}`}</p></Typography>
+                <Box onClick = {handleShowSongs}>
+                    {showSongs ? <KeyboardDoubleArrowUp /> : <KeyboardDoubleArrowDown />}
+                </Box>
             </Box>
             {/* <Box sx={{ p: 1 }}>
                 <IconButton onClick={handleToggleEdit} aria-label='edit'>

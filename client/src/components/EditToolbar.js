@@ -33,30 +33,59 @@ function EditToolbar() {
                 disabled={!store.canAddNewSong()}
                 id='add-song-button'
                 onClick={handleAddNewSong}
-                variant="contained">
-                <AddIcon />
+                variant="contained"
+                style = {{color: "#4197bf", width: "96%", margin: "0px 2% 12px 2%", borderRadius: "15px", backgroundColor: "#edf2f2", border: "1px solid #4197bf", boxShadow: "none", fontWeight: "bold"}}>
+                Add
             </Button>
-            <Button 
-                disabled={!store.canUndo()}
-                id='undo-button'
-                onClick={handleUndo}
-                variant="contained">
-                    <UndoIcon />
-            </Button>
-            <Button 
-                disabled={!store.canRedo()}
-                id='redo-button'
-                onClick={handleRedo}
-                variant="contained">
-                    <RedoIcon />
-            </Button>
-            <Button 
+            <div class = "edit-toolbar-bottom">
+                <div>
+                    <Button 
+                        disabled={!store.canUndo()}
+                        id='undo-button'
+                        onClick={handleUndo}
+                        variant="contained"
+                        // className="toolbar-button"
+                        style = {{borderRadius: "10px", fontSize: "9pt", margin: "5px", boxShadow: "none"}}>
+                        Undo
+                    </Button>
+                    <Button 
+                        disabled={!store.canRedo()}
+                        id='redo-button'
+                        onClick={handleRedo}
+                        variant="contained"
+                        // className="toolbar-button"
+                        style = {{borderRadius: "10px", fontSize: "9pt", margin: "5px", boxShadow: "none"}}>
+                        Redo
+                    </Button>
+                </div>
+                <div>
+                    <Button 
+                        variant="contained"
+                        // className="toolbar-button"
+                        style = {{borderRadius: "10px", fontSize: "9pt", margin: "5px", boxShadow: "none"}}>
+                        Publish
+                    </Button>
+                    <Button 
+                        variant="contained"
+                        // className="toolbar-button"
+                        style = {{borderRadius: "10px", fontSize: "9pt", margin: "5px", boxShadow: "none"}}>
+                        Delete
+                    </Button>
+                    <Button 
+                        variant="contained"
+                        // className="toolbar-button"
+                        style = {{borderRadius: "10px", fontSize: "9pt", margin: "5px", boxShadow: "none"}}>
+                        Duplicate
+                    </Button>
+                </div>
+            </div>
+            {/* <Button 
                 disabled={!store.canClose()}
                 id='close-button'
                 onClick={handleClose}
                 variant="contained">
                     <CloseIcon />
-            </Button>
+            </Button> */}
         </div>
     )
 }
