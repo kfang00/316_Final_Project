@@ -241,6 +241,14 @@ body {
   overflow: scroll;
 }
 
+.published-workspace {
+  background-color: #111111;
+  color: white;
+  padding: 15px 20px;
+  margin: 5px 10px;
+  border-radius: 20px;
+}
+
 .list-card,
 .selected-list-card,
 .unselected-list-card {

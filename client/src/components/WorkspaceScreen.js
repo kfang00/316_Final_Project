@@ -31,13 +31,16 @@ function WorkspaceScreen() {
         <Box sx = {{width: "100%"}}>
         <List 
             id="playlist-cards" 
-            sx={{ width: '100%', bgcolor: 'background.paper'}}
+            sx={{ width: '100%'}}
         >
             { store.currentList ? (
                 store.currentList.isPublished ? 
-                store.currentList.songs.map((song, index) => (
-                    <Typography>{song.name}</Typography>
-                )) : store.currentList.songs.map((song, index) => (
+                <div className = "published-workspace">
+                    { store.currentList.songs.map((song, index) => (
+                        <Typography style = {{padding: "5px 0px", fontFamily: "Lexend Exa"}}>{`${index + 1}. ${song.title}`}</Typography>
+                    )) } 
+                </div>
+                 : store.currentList.songs.map((song, index) => (
                     <SongCard
                         id={'playlist-song-' + (index)}
                         key={'playlist-song-' + (index)}

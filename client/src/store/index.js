@@ -563,10 +563,24 @@ function GlobalStoreContextProvider(props) {
                     type: GlobalStoreActionType.SET_CURRENT_LIST,
                     payload: store.currentList
                 });
+                if (store.currentList.isPublished) {
+                    store.loadIdNamePairs();
+                }
             }
         }
         asyncUpdateCurrentList();
     }
+
+    // publishes current list
+    store.publishList = function() {
+        let list = store.currentList;
+        list.isPublished = true
+        list.publishedDate = new Date();
+
+        // NOW MAKE IT OFFICIAL        
+        store.updateCurrentList();
+    }
+
     store.undo = function () {
         tps.undoTransaction();
     }
