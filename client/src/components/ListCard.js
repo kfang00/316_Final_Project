@@ -19,6 +19,7 @@ function ListCard(props) {
     const { idNamePair, selected } = props;
 
     function handleLoadList(event, id) {
+        event.stopPropagation();
         console.log("handleLoadList for " + id);
         if (!event.target.disabled) {
             let _id = event.target.id;
@@ -139,9 +140,7 @@ function ListCard(props) {
                 <Box sx = {{display: "flex", width: "100%"}} style = {{justifyContent: "space-between", alignItems: "center"}}>
                     <Typography style = {{fontSize: "9pt", display: "flex", alignItems: "center", padding: "0px 10px"}}>Published: <p style = {{color: "green", padding: "0px 5px"}}>{`${new Date(idNamePair.publishedDate).toDateString()}`}</p></Typography>
                     <Typography style = {{fontSize: "9pt", display: "flex", alignItems: "center"}}>Listens: <p style = {{color: "red", padding: "0px 5px"}}>{`${idNamePair.listens}`}</p></Typography>
-                    <Box>
-                        {(showSongs && store.currentList !== null && store.currentList._id === idNamePair._id) ? <KeyboardDoubleArrowUp onClick = {handleHideSongs}/> : <KeyboardDoubleArrowDown onClick = {handleShowSongs}/>}
-                    </Box>
+                    {(showSongs && store.currentList !== null && store.currentList._id === idNamePair._id) ? <KeyboardDoubleArrowUp onClick = {handleHideSongs}/> : <KeyboardDoubleArrowDown onClick = {handleShowSongs}/>}
                 </Box>
                 {/* <Box sx={{ p: 1 }}>
                     <IconButton onClick={handleToggleEdit} aria-label='edit'>

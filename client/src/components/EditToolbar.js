@@ -28,11 +28,9 @@ function EditToolbar() {
         store.redo();
     }
 
-    async function handleDeleteList(event, id) {
+    async function handleDeleteList(event) {
         event.stopPropagation();
-        let _id = event.target.id;
-        _id = ("" + _id).substring("delete-list-".length);
-        store.markListForDeletion(id);
+        store.markListForDeletion(store.currentList._id);
     }
 
     function handleClose() {
