@@ -324,7 +324,9 @@ function GlobalStoreContextProvider(props) {
             );
 
             // IF IT'S A VALID LIST THEN LET'S START EDITING IT
-            history.push("/playlist/" + newList._id);
+            // history.push("/playlist/" + newList._id);
+            store.loadIdNamePairs();
+            history.push("/");
         }
         else {
             console.log("API FAILED TO CREATE A NEW LIST");
@@ -371,6 +373,7 @@ function GlobalStoreContextProvider(props) {
                     type: GlobalStoreActionType.MARK_LIST_FOR_DELETION,
                     payload: {id: id, playlist: playlist}
                 });
+                console.log(store.listMarkedForDeletion);
             }
         }
         getListToDelete(id);
@@ -440,13 +443,14 @@ function GlobalStoreContextProvider(props) {
             let response = await api.getPlaylistById(id);
             if (response.data.success) {
                 let playlist = response.data.playlist;
-
+                tps.clearAllTransactions();
                 response = await api.updatePlaylistById(playlist._id, playlist);
                 if (response.data.success) {
                     storeReducer({
                         type: GlobalStoreActionType.SET_CURRENT_LIST,
                         payload: playlist
                     });
+                    tps.clearAllTransactions();
                     // history.push("/");
                     // history.push("/playlist/" + playlist._id);
                 }

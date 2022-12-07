@@ -15,15 +15,26 @@ import CloseIcon from '@mui/icons-material/HighlightOff';
 function EditToolbar() {
     const { store } = useContext(GlobalStoreContext);
 
-    function handleAddNewSong() {
+    function handleAddNewSong(event) {
+        event.stopPropagation();
         store.addNewSong();
     }
-    function handleUndo() {
+    function handleUndo(event) {
+        event.stopPropagation();
         store.undo();
     }
-    function handleRedo() {
+    function handleRedo(event) {
+        event.stopPropagation();
         store.redo();
     }
+
+    async function handleDeleteList(event, id) {
+        event.stopPropagation();
+        let _id = event.target.id;
+        _id = ("" + _id).substring("delete-list-".length);
+        store.markListForDeletion(id);
+    }
+
     function handleClose() {
         store.closeCurrentList();
     }
@@ -37,7 +48,7 @@ function EditToolbar() {
                 style = {{color: "#4197bf", width: "96%", margin: "0px 2% 12px 2%", borderRadius: "15px", backgroundColor: "#edf2f2", border: "1px solid #4197bf", boxShadow: "none", fontWeight: "bold"}}>
                 Add
             </Button>
-            <div class = "edit-toolbar-bottom">
+            <div className = "edit-toolbar-bottom">
                 <div>
                     <Button 
                         disabled={!store.canUndo()}
@@ -68,6 +79,7 @@ function EditToolbar() {
                     <Button 
                         variant="contained"
                         // className="toolbar-button"
+                        onClick={handleDeleteList}
                         style = {{borderRadius: "10px", fontSize: "9pt", margin: "5px", boxShadow: "none"}}>
                         Delete
                     </Button>

@@ -19,7 +19,8 @@ const style = {
 export default function MUIRemoveSongModal() {
     const { store } = useContext(GlobalStoreContext);
 
-    function handleConfirmRemoveSong () {
+    function handleConfirmRemoveSong (event) {
+        event.stopPropagation();
         store.addRemoveSongTransaction();
     }
 
@@ -36,9 +37,14 @@ export default function MUIRemoveSongModal() {
         songTitle = store.currentSong.title;
     }
 
+    function handleModalClick(event) {
+        event.stopPropagation();
+    }
+
     return (
         <Modal
             open={store.isRemoveSongModalOpen()}
+            onClick = {handleModalClick}
         >
             <Box sx={style}>
                 <div

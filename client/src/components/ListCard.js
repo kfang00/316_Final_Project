@@ -38,6 +38,7 @@ function ListCard(props) {
     }
 
     function handleClickListItem(event) {
+        event.stopPropagation();
         if (event.detail === 2) {
             handleToggleEdit(event);
         } else if (event.detail === 1) {
@@ -52,13 +53,7 @@ function ListCard(props) {
             store.setIsListNameEditActive();
         }
         setEditActive(newActive);
-    }
-
-    async function handleDeleteList(event, id) {
-        event.stopPropagation();
-        let _id = event.target.id;
-        _id = ("" + _id).substring("delete-list-".length);
-        store.markListForDeletion(id);
+        showSongsToggle(false);
     }
 
     function handleKeyPress(event) {
@@ -76,11 +71,17 @@ function ListCard(props) {
         store.setView("USER_LISTS");
     }
 
-    function handleShowSongs() {
-        // store.setCurrentList(idNamePair._id);
-        showSongsToggle(!showSongs);
-        // store.setCurrentList(idNamePair._id).then(showSongsToggle(!showSongs));
-        
+    function handleShowSongs(event) {
+        event.stopPropagation();
+        store.setCurrentList(idNamePair._id);
+        showSongsToggle(true);
+                
+    }
+
+    function handleHideSongs(event) {
+        event.stopPropagation();
+        store.closeCurrentList();
+        showSongsToggle(false);
     }
 
     let selectClass = "unselected-list-card";
@@ -92,9 +93,9 @@ function ListCard(props) {
         cardStatus = true;
     }
 
-    let playlistName = idNamePair.name;
+    let cardElement = null;
     if (editActive) {
-        playlistName =
+        cardElement =
             <TextField
                 margin="normal"
                 required
@@ -107,56 +108,56 @@ function ListCard(props) {
                 onKeyPress={handleKeyPress}
                 onChange={handleUpdateText}
                 defaultValue={idNamePair.name}
-                inputProps={{style: {fontSize: 35}}}
+                inputProps={{style: {fontSize: 30}}}
                 InputLabelProps={{style: {fontSize: 20}}}
                 autoFocus
+                onBlur={handleToggleEdit}
+                style = {{width: "94%", backgroundColor: "white", borderRadius: 10, margin: "2%", padding: "5px 5px 5px 5px"}}
             />
     } else {
-        playlistName = idNamePair.name
-    }
-
-    let cardElement = (
-        <ListItem
-            id={idNamePair._id}
-            key={idNamePair._id}
-            className={selectClass}
-            sx={{ display: 'flex', p: 1, flexDirection: "column" }}
-            style={{ margin: "6px 2% 15px 2%", width: '96%', fontSize: '22pt', backgroundColor: "white", borderRadius: 10, marginBottom: 15}}
-            button
-            onClick={handleClickListItem}
-        >
-            <Box style = {{width: '100%', display: 'flex', justifyContent: "space-between"}}>
-                <div>
-                    <Box sx={{ p: 1, flexGrow: 1, fontSize: '16pt' }}>{playlistName}</Box>
-                    <Box sx={{ display: 'flex', flexGrow: 1, fontSize: '9pt', flexDirection: "row", padding: "1px 10px" }}>By: <Box sx = {{ textDecoration: "underline", color: "blue"}} onClick = {handleClickUsername}>{idNamePair.username}</Box></Box>
-                </div>
-                <div style = {{ height: "30px", display: "flex", fontSize: '9pt', alignItems: "center", padding: 5 }}>
-                    <ThumbUpOutlined /> <p style = {{padding: "10px 20px"}}>{idNamePair.likes}</p>
-                    <ThumbDownOutlined />  <p style = {{padding: "10px 20px"}}>{idNamePair.dislikes}</p>
-                </div>
-            </Box>
-            {showSongs ? <WorkspaceScreen /> : null }
-            <Box sx = {{display: "flex", width: "100%"}} style = {{justifyContent: "space-between", alignItems: "center"}}>
-                <Typography style = {{fontSize: "9pt", display: "flex", alignItems: "center", padding: "0px 10px"}}>Published: <p style = {{color: "green", padding: "0px 5px"}}>{`${new Date(idNamePair.publishedDate).toDateString()}`}</p></Typography>
-                <Typography style = {{fontSize: "9pt", display: "flex", alignItems: "center"}}>Listens: <p style = {{color: "red", padding: "0px 5px"}}>{`${idNamePair.listens}`}</p></Typography>
-                <Box onClick = {handleShowSongs}>
-                    {showSongs ? <KeyboardDoubleArrowUp /> : <KeyboardDoubleArrowDown />}
+        cardElement = (
+            <ListItem
+                id={idNamePair._id}
+                key={idNamePair._id}
+                className={selectClass}
+                sx={{ display: 'flex', p: 1, flexDirection: "column" }}
+                style={{ margin: "6px 2% 15px 2%", width: '96%', fontSize: '22pt', backgroundColor: "white", borderRadius: 10, marginBottom: 15}}
+                button
+                onClick={handleClickListItem}
+            >
+                <Box style = {{width: '100%', display: 'flex', justifyContent: "space-between"}}>
+                    <div>
+                        <Box sx={{ p: 1, flexGrow: 1, fontSize: '16pt' }}>{idNamePair.name}</Box>
+                        <Box sx={{ display: 'flex', flexGrow: 1, fontSize: '9pt', flexDirection: "row", padding: "1px 10px" }}>By: <Box sx = {{ textDecoration: "underline", color: "blue"}} onClick = {handleClickUsername}>{idNamePair.username}</Box></Box>
+                    </div>
+                    <div style = {{ height: "30px", display: "flex", fontSize: '9pt', alignItems: "center", padding: 5 }}>
+                        <ThumbUpOutlined /> <p style = {{padding: "10px 20px"}}>{idNamePair.likes}</p>
+                        <ThumbDownOutlined />  <p style = {{padding: "10px 20px"}}>{idNamePair.dislikes}</p>
+                    </div>
                 </Box>
-            </Box>
-            {/* <Box sx={{ p: 1 }}>
-                <IconButton onClick={handleToggleEdit} aria-label='edit'>
-                    <EditIcon style={{fontSize:'30pt'}} />
-                </IconButton>
-            </Box> */}
-            {/* <Box sx={{ p: 1 }}>
-                <IconButton onClick={(event) => {
-                        handleDeleteList(event, idNamePair._id)
-                    }} aria-label='delete'>
-                    <DeleteIcon style={{fontSize:'30pt'}} />
-                </IconButton>
-            </Box> */}
-        </ListItem>
-    )
+                {(showSongs && store.currentList !== null && store.currentList._id === idNamePair._id) ? <WorkspaceScreen /> : null }
+                <Box sx = {{display: "flex", width: "100%"}} style = {{justifyContent: "space-between", alignItems: "center"}}>
+                    <Typography style = {{fontSize: "9pt", display: "flex", alignItems: "center", padding: "0px 10px"}}>Published: <p style = {{color: "green", padding: "0px 5px"}}>{`${new Date(idNamePair.publishedDate).toDateString()}`}</p></Typography>
+                    <Typography style = {{fontSize: "9pt", display: "flex", alignItems: "center"}}>Listens: <p style = {{color: "red", padding: "0px 5px"}}>{`${idNamePair.listens}`}</p></Typography>
+                    <Box>
+                        {(showSongs && store.currentList !== null && store.currentList._id === idNamePair._id) ? <KeyboardDoubleArrowUp onClick = {handleHideSongs}/> : <KeyboardDoubleArrowDown onClick = {handleShowSongs}/>}
+                    </Box>
+                </Box>
+                {/* <Box sx={{ p: 1 }}>
+                    <IconButton onClick={handleToggleEdit} aria-label='edit'>
+                        <EditIcon style={{fontSize:'30pt'}} />
+                    </IconButton>
+                </Box> */}
+                {/* <Box sx={{ p: 1 }}>
+                    <IconButton onClick={(event) => {
+                            handleDeleteList(event, idNamePair._id)
+                        }} aria-label='delete'>
+                        <DeleteIcon style={{fontSize:'30pt'}} />
+                    </IconButton>
+                </Box> */}
+            </ListItem>
+        )
+        }
     return (
         cardElement
     );
