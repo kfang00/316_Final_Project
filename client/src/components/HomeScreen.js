@@ -13,7 +13,7 @@ import { HomeOutlined, GroupsOutlined, PersonOutlineOutlined, SortOutlined } fro
 */
 const HomeScreen = () => {
     const { store } = useContext(GlobalStoreContext);
-    const [ searchText, setSearchText ] = useState("");
+    const [ searchText, setSearchText ] = useState(store.searchText);
 
     // The menu's anchor element, i.e. where it will appear
     const [anchorEl, setAnchorEl] = useState(null);
@@ -22,25 +22,29 @@ const HomeScreen = () => {
     const isMenuOpen = Boolean(anchorEl);
 
     // Reponds to click on home button - calls store.setView("home")
-    const handleClickHome = () => {
+    const handleClickHome = (event) => {
+        event.stopPropagation();
         store.setView("HOME");
     }
 
     // Reponds to click on all lists button - calls store.setView("lists")
-    const handleClickAllLists = () => {
+    const handleClickAllLists = (event) => {
+        event.stopPropagation();
         store.setView("ALL_LISTS");
     }
 
     // Reponds to click on users button - calls store.setView("users")
-    const handleClickUserLists = () => {
+    const handleClickUserLists = (event) => {
+        event.stopPropagation();
         store.setView("USER_LISTS");
     }
     
-    // Calls setSearchText()
-    const handleUpdateSearchText = (event) => {}
-    
     // Calls store.setSearchText(searchText)
-    const handleEnterSearchText = () => {}
+    const handleEnterSearchText = (event) => {
+        if (event.key === "Enter") {
+            store.setSearchText(searchText);
+        }
+    }
     
     // Responds to click on "sort by" to open drop-down menu
     const handleSortByMenuOpen = (event) => {
@@ -69,7 +73,7 @@ const HomeScreen = () => {
 
     useEffect(() => {
         store.loadIdNamePairs();
-    }, []);
+    }, [store.currentView]);
 
     const sortByMenuHome = (
         <Menu
@@ -168,6 +172,10 @@ const HomeScreen = () => {
                         <TextField
                             label="Search"
                             fullWidth
+                            value={searchText}
+                            disabled={store.currentView === "HOME"}
+                            onChange={(event) => setSearchText(event.target.value)}
+                            onKeyDown={handleEnterSearchText}
                         />
                     </div>
                     <Button
