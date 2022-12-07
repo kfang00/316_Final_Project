@@ -73,7 +73,7 @@ const HomeScreen = () => {
 
     useEffect(() => {
         store.loadIdNamePairs();
-    }, [store.currentView]);
+    }, [store.currentView, store.searchText]);
 
     const sortByMenuHome = (
         <Menu

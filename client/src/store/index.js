@@ -25,6 +25,7 @@ export const GlobalStoreActionType = {
     CLOSE_CURRENT_LIST: "CLOSE_CURRENT_LIST",
     CREATE_NEW_LIST: "CREATE_NEW_LIST",
     SET_VIEW : "SET_VIEW",
+    SET_SEARCH_TEXT: "SET_SEARCH_TEXT",
     LOAD_ID_NAME_PAIRS: "LOAD_ID_NAME_PAIRS",
     MARK_LIST_FOR_DELETION: "MARK_LIST_FOR_DELETION",
     SET_CURRENT_LIST: "SET_CURRENT_LIST",
@@ -150,6 +151,21 @@ function GlobalStoreContextProvider(props) {
                     listMarkedForDeletion: null,
                     searchText: "",
                     currentView: payload
+                })
+            }
+            case GlobalStoreActionType.SET_SEARCH_TEXT: {                
+                return setStore({
+                    currentModal : CurrentModal.NONE,
+                    idNamePairs: store.idNamePairs,
+                    currentList: null,
+                    currentSongIndex : -1,
+                    currentSong : null,
+                    newListCounter: store.newListCounter,
+                    listNameActive: false,
+                    listIdMarkedForDeletion: null,
+                    listMarkedForDeletion: null,
+                    searchText: payload,
+                    currentView: store.currentView
                 })
             }
             // GET ALL THE LISTS SO WE CAN PRESENT THEM
@@ -362,7 +378,10 @@ function GlobalStoreContextProvider(props) {
     }
 
     store.setSearchText = function(text) {
-
+        storeReducer({
+            type: GlobalStoreActionType.SET_SEARCH_TEXT,
+            payload: text
+        })
     }
 
     // THIS FUNCTION LOADS ALL THE ID, NAME PAIRS SO WE CAN LIST ALL THE LISTS
