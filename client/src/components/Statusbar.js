@@ -15,9 +15,9 @@ function Statusbar() {
     const { store } = useContext(GlobalStoreContext);
     const { auth } = useContext(AuthContext);
 
-    let text = "";
-    if (store.currentList)
-        text = store.currentList.name;
+    // let text = "";
+    // if (store.currentList)
+    //     text = store.currentList.name;
 
     function handleCreateNewList() {
         store.createNewList();
@@ -27,22 +27,31 @@ function Statusbar() {
     return (
         <div>
             { store.currentView !== "SPLASH" ? 
-            <div id="top5-statusbar">
-                {(store.currentView === "HOME") ?
-                    <div id="status-bar-add-list">
-                        <Fab 
-                            style={{color: `${addListButtonStyle}`, width: "45px", height: "45px", backgroundColor: `${addListButtonStyleBackground}`}}
-                            aria-label="add"
-                            id="add-list-button"
-                            onClick={handleCreateNewList}
-                        >
-                            <AddIcon />
-                        </Fab>
-                        <Typography variant="h3" style = {{fontWeight: "400", fontSize: "32px", marginLeft: "10px", color: "white"}} >Your Lists</Typography>
-                    </div> : null
-                }
-                <Typography variant="h4">{text}</Typography>
-            </div> 
+                <div id="top5-statusbar">
+                    {(store.currentView === "HOME") ?
+                        <div id="status-bar-add-list">
+                            <Fab 
+                                style={{color: `${addListButtonStyle}`, width: "45px", height: "45px", backgroundColor: `${addListButtonStyleBackground}`}}
+                                aria-label="add"
+                                id="add-list-button"
+                                onClick={handleCreateNewList}
+                            >
+                                <AddIcon />
+                            </Fab>
+                            <Typography variant="h3" style = {{fontWeight: "400", fontSize: "32px", marginLeft: "10px", color: "white"}} >Your Lists</Typography>
+                        </div> 
+                        : null
+                    }
+                    {(store.currentView === "ALL_LISTS") ?
+                        <Typography variant="h4">{`${store.searchText} Playlists`}</Typography>
+                         : null
+                    }
+                    {(store.currentView === "USER_LISTS") ?
+                        <Typography variant="h4">{`${store.searchText} Lists`}</Typography>
+                         : null
+                    }
+                    
+                </div> 
             : null }
         </div>
     );

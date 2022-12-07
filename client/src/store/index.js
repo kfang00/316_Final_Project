@@ -314,7 +314,8 @@ function GlobalStoreContextProvider(props) {
                     response = await api.updatePlaylistById(playlist._id, playlist);
                     if (response.data.success) {
                         async function getListPairs(playlist) {
-                            response = await api.getPlaylistPairs(store.currentView, store.searchText);
+                            let email = auth.loggedIn ? auth.user.email : null;
+                            response = await api.getPlaylistPairs(store.currentView, store.searchText, email);
                             if (response.data.success) {
                                 let pairsArray = response.data.idNamePairs;
                                 storeReducer({
@@ -387,7 +388,8 @@ function GlobalStoreContextProvider(props) {
     // THIS FUNCTION LOADS ALL THE ID, NAME PAIRS SO WE CAN LIST ALL THE LISTS
     store.loadIdNamePairs = function () {
         async function asyncLoadIdNamePairs() {
-            const response = await api.getPlaylistPairs(store.currentView, store.searchText);
+            let email = auth.loggedIn ? auth.user.email : null;
+            const response = await api.getPlaylistPairs(store.currentView, store.searchText, email);
             if (response.data.success) {
                 let pairsArray = response.data.idNamePairs;
                 storeReducer({
@@ -486,16 +488,16 @@ function GlobalStoreContextProvider(props) {
             if (response.data.success) {
                 let playlist = response.data.playlist;
                 tps.clearAllTransactions();
-                response = await api.updatePlaylistById(playlist._id, playlist);
-                if (response.data.success) {
-                    storeReducer({
-                        type: GlobalStoreActionType.SET_CURRENT_LIST,
-                        payload: playlist
-                    });
-                    tps.clearAllTransactions();
+                // response = await api.updatePlaylistById(playlist._id, playlist);
+                // if (response.data.success) {
+                storeReducer({
+                    type: GlobalStoreActionType.SET_CURRENT_LIST,
+                    payload: playlist
+                });
+                tps.clearAllTransactions();
                     // history.push("/");
                     // history.push("/playlist/" + playlist._id);
-                }
+                // }
             }
         }
         asyncSetCurrentList(id);

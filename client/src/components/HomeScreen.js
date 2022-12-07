@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { GlobalStoreContext } from '../store'
+import AuthContext from '../auth';
 import ListCard from './ListCard.js'
 import MUIDeleteModal from './MUIDeleteModal'
 
@@ -12,6 +13,7 @@ import { HomeOutlined, GroupsOutlined, PersonOutlineOutlined, SortOutlined } fro
     @author McKilla Gorilla
 */
 const HomeScreen = () => {
+    const { auth } = useContext(AuthContext);
     const { store } = useContext(GlobalStoreContext);
     const [ searchText, setSearchText ] = useState(store.searchText);
 
@@ -146,27 +148,32 @@ const HomeScreen = () => {
             </List>;
     }
 
+    let homeColor = !auth.loggedIn ? "#cfcfcf" : (store.currentView === "HOME" ? "black" : "rgb(216, 87, 109)")
+    let homebgColor = auth.loggedIn ? "transparent" : "#e6e6e6";
+    let listsColor = store.currentView === "ALL_LISTS" ? "black" : "rgb(216, 87, 109)"
+    let usersColor = store.currentView === "USER_LISTS" ? "black" : "rgb(216, 87, 109)"
     return (
         <div>
             <AppBar position="static" sx={{ bgcolor: "#edf2f2" }}>
                 <Toolbar>
                     <Button
-                        // disabled={false}
+                        disabled={!auth.loggedIn}
                         id='home-button'
-                        onClick={handleClickHome}>
-                        <HomeOutlined style={{ fontSize: 34 }}/>
+                        onClick={handleClickHome}
+                        style = {{backgroundColor: homebgColor}}>
+                        <HomeOutlined style={{ fontSize: 34, color: homeColor }}/>
                     </Button>
                     <Button
                         // disabled={false}
                         id='all-lists-button'
                         onClick={handleClickAllLists}>
-                        <GroupsOutlined style={{ fontSize: 34 }}/>
+                        <GroupsOutlined style={{ fontSize: 34, color: listsColor }}/>
                     </Button>
                     <Button
                         // disabled={false}
                         id='user-lists-button'
                         onClick={handleClickUserLists}>
-                        <PersonOutlineOutlined style={{ fontSize: 34 }}/>
+                        <PersonOutlineOutlined style={{ fontSize: 34, color: usersColor }}/>
                     </Button>
                     <div id = "home-search-bar">
                         <TextField

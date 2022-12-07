@@ -230,8 +230,8 @@ body {
 #playlist-selector {
   overflow: scroll;
   height: 55vh;
-  padding-top: 15px;
-  margin: 12px 0px;
+  /* padding-top: 15px; */
+  margin: 28px 0px 12px 0px;
 }
 
 #list-selector-list {

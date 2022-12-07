@@ -91,68 +91,68 @@ getPlaylistById = async (req, res) => {
             return res.status(400).json({ success: false, error: err });
         }
         console.log("Found list: " + JSON.stringify(list));
-
+        return res.status(200).json({ success: true, playlist: list })
         // DOES THIS LIST BELONG TO THIS USER?
-        async function asyncFindUser(list) {
-            await User.findOne({ email: list.ownerEmail }, (err, user) => {
-                console.log("user._id: " + user._id);
-                console.log("req.userId: " + req.userId);
-                if (user._id == req.userId) {
-                    console.log("correct user!");
-                    return res.status(200).json({ success: true, playlist: list })
-                }
-                else {
-                    console.log("incorrect user!");
-                    return res.status(400).json({ success: false, description: "authentication error" });
-                }
-            });
-        }
-        asyncFindUser(list);
+        // async function asyncFindUser(list) {
+        //     await User.findOne({ email: list.ownerEmail }, (err, user) => {
+        //         console.log("user._id: " + user._id);
+        //         console.log("req.userId: " + req.userId);
+        //         if (user._id == req.userId) {
+        //             console.log("correct user!");
+        //             return res.status(200).json({ success: true, playlist: list })
+        //         }
+        //         else {
+        //             console.log("incorrect user!");
+        //             return res.status(400).json({ success: false, description: "authentication error" });
+        //         }
+        //     });
+        // }
+        // asyncFindUser(list);
     }).catch(err => console.log(err))
 }
 getPlaylistPairs = async (req, res) => {
     console.log("getPlaylistPairs");
     let body = req.body;
     if (body.view === "HOME") {
-        await User.findOne({ _id: req.userId }, (err, user) => {
-            console.log("find user with id " + req.userId);
-            async function asyncFindList(email) {
-                console.log("find all Playlists owned by " + email);
-                await Playlist.find({ ownerEmail: email, name: new RegExp(body.searchText, "i") }, (err, playlists) => {
-                    console.log("found Playlists: " + JSON.stringify(playlists));
-                    if (err) {
-                        return res.status(400).json({ success: false, error: err })
-                    }
-                    if (!playlists) {
-                        console.log("!playlists.length");
-                        return res
-                            .status(404)
-                            .json({ success: false, error: 'Playlists not found' })
-                    }
-                    else {
-                        console.log("Send the Playlist pairs");
-                        // PUT ALL THE LISTS INTO ID, NAME PAIRS
-                        let pairs = [];
-                        for (let key in playlists) {
-                            let list = playlists[key];
-                            let pair = {
-                                _id: list._id,
-                                name: list.name,
-                                username: list.username,
-                                likes: list.likes,
-                                dislikes: list.dislikes,
-                                publishedDate: list.publishedDate,
-                                listens: list.listens,
-                                isPublished: list.isPublished
-                            };
-                            pairs.push(pair);
-                        }
-                        return res.status(200).json({ success: true, idNamePairs: pairs })
-                    }
-                }).catch(err => console.log(err))
+        // await User.findOne({ _id: req.userId }, (err, user) => {
+        //     console.log("find user with id " + req.userId);
+        //     async function asyncFindList(email) {
+        //         console.log("find all Playlists owned by " + email);
+        await Playlist.find({ ownerEmail: body.email, name: new RegExp(body.searchText, "i") }, (err, playlists) => {
+            console.log("found Playlists: " + JSON.stringify(playlists));
+            if (err) {
+                return res.status(400).json({ success: false, error: err })
             }
-            asyncFindList(user.email);
+            if (!playlists) {
+                console.log("!playlists.length");
+                return res
+                    .status(404)
+                    .json({ success: false, error: 'Playlists not found' })
+            }
+            else {
+                console.log("Send the Playlist pairs");
+                // PUT ALL THE LISTS INTO ID, NAME PAIRS
+                let pairs = [];
+                for (let key in playlists) {
+                    let list = playlists[key];
+                    let pair = {
+                        _id: list._id,
+                        name: list.name,
+                        username: list.username,
+                        likes: list.likes,
+                        dislikes: list.dislikes,
+                        publishedDate: list.publishedDate,
+                        listens: list.listens,
+                        isPublished: list.isPublished
+                    };
+                    pairs.push(pair);
+                }
+                return res.status(200).json({ success: true, idNamePairs: pairs })
+            }
         }).catch(err => console.log(err))
+        //     }
+        //     asyncFindList(user.email);
+        // }).catch(err => console.log(err))
     }
     if (body.view === "ALL_LISTS") {
         await Playlist.find({ isPublished: true, name: new RegExp(body.searchText, "i") }, (err, playlists) => {
