@@ -63,28 +63,61 @@ const HomeScreen = () => {
         setTab(0);
     }
 
-    const handleClickComments = () => {
+    const handleClickComments = (event) => {
         setTab(1);
     }
     
-    // Responds to click on "Name (A - Z)" - calls store.sortLists("name")
-    const handleSortByName = () => {}
+    // Responds to click on "Name (A - Z)"
+    const handleSortByName = (event) => {
+        event.stopPropagation();
+        handleMenuClose();
+        store.setFilter("name");
+    }
     
-    // Responds to click on "Publish Date (Newest)" - calls store.sortLists("publishDate")
-    const handleSortByPublishDate = () => {}
+    // Responds to click on "Publish Date (Newest)"
+    const handleSortByPublishDate = (event) => {
+        event.stopPropagation();
+        handleMenuClose();
+        store.setFilter("-publishedDate");
+    }
+
+    const handleSortByCreationDate = (event) => {
+        event.stopPropagation();
+        handleMenuClose();
+        store.setFilter("creationDate");
+    }
+
+    const handleSortByLastEditDate = (event) => {
+        event.stopPropagation();
+        handleMenuClose();
+        store.setFilter("-lastEditDate");
+    }
     
-    // Responds to click on "Listens (High - Low)" - calls store.sortLists("listens")
-    const handleSortByListens = () => {}
+    // Responds to click on "Listens (High - Low)"
+    const handleSortByListens = (event) => {
+        event.stopPropagation();
+        handleMenuClose();
+        store.setFilter("-listens");
+    }
     
-    // Responds to click on "Likes (High - Low)" - calls store.sortLists("likes")
-    const handleSortByLikes = () => {}
+    // Responds to click on "Likes (High - Low)"
+    const handleSortByLikes = (event) => {
+        event.stopPropagation();
+        handleMenuClose();
+        store.setFilter("-likes");
+    }
     
-    // Responds to click on "Dislikes (High - Low)" - calls store.sortLists("dislikes")
-    const handleSortByDislikes = () => {}
+    // Responds to click on "Dislikes (High - Low)"
+    const handleSortByDislikes = (event) => {
+        event.stopPropagation();
+        handleMenuClose();
+        store.setFilter("-dislikes");
+    }
 
     useEffect(() => {
         store.loadIdNamePairs();
-    }, [store.currentView, store.searchText]);
+        console.log("rann");
+    }, [store.currentView, store.searchText, store.currentFilter]);
 
     const sortByMenuHome = (
         <Menu
@@ -101,9 +134,9 @@ const HomeScreen = () => {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>By Creation Date (Old-New)</MenuItem>
-            <MenuItem onClick={handleMenuClose}>By Last Edit Date (New-Old)</MenuItem>
-            <MenuItem onClick={handleMenuClose}>By Name (A-Z)</MenuItem>
+            <MenuItem onClick={handleSortByCreationDate}>By Creation Date (Old-New)</MenuItem>
+            <MenuItem onClick={handleSortByLastEditDate}>By Last Edit Date (New-Old)</MenuItem>
+            <MenuItem onClick={handleSortByName}>By Name (A-Z)</MenuItem>
         </Menu>
     );
 
@@ -122,11 +155,11 @@ const HomeScreen = () => {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Name (A-Z)</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Publish Date (Newest)</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Listens (High - Low)</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Likes (High - Low) </MenuItem>
-            <MenuItem onClick={handleMenuClose}>Dislikes (High - Low)</MenuItem>
+            <MenuItem onClick={handleSortByName}>Name (A-Z)</MenuItem>
+            <MenuItem onClick={handleSortByPublishDate}>Publish Date (Newest)</MenuItem>
+            <MenuItem onClick={handleSortByListens}>Listens (High - Low)</MenuItem>
+            <MenuItem onClick={handleSortByLikes}>Likes (High - Low) </MenuItem>
+            <MenuItem onClick={handleSortByDislikes}>Dislikes (High - Low)</MenuItem>
         </Menu>
     );
 

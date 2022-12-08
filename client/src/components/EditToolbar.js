@@ -5,6 +5,7 @@ import AddIcon from '@mui/icons-material/Add';
 import RedoIcon from '@mui/icons-material/Redo';
 import UndoIcon from '@mui/icons-material/Undo';
 import CloseIcon from '@mui/icons-material/HighlightOff';
+import AuthContext from '../auth'
 
 /*
     This toolbar is a functional React component that
@@ -14,6 +15,7 @@ import CloseIcon from '@mui/icons-material/HighlightOff';
 */
 function EditToolbar() {
     const { store } = useContext(GlobalStoreContext);
+    const { auth } = useContext(AuthContext);
 
     function handleAddNewSong(event) {
         event.stopPropagation();
@@ -92,12 +94,13 @@ function EditToolbar() {
                             style = {{fontFamily: "Lexend Exa", borderRadius: "10px", fontSize: "8pt", margin: "5px", boxShadow: "none"}}>
                             Delete
                         </Button> : null }
-                    <Button 
-                        variant="contained"
-                        // className="toolbar-button"
-                        style = {{fontFamily: "Lexend Exa", borderRadius: "10px", fontSize: "8pt", margin: "5px", boxShadow: "none"}}>
-                        Duplicate
-                    </Button>
+                    {auth.loggedIn !== false ? 
+                        <Button 
+                            variant="contained"
+                            // className="toolbar-button"
+                            style = {{fontFamily: "Lexend Exa", borderRadius: "10px", fontSize: "8pt", margin: "5px", boxShadow: "none"}}>
+                            Duplicate
+                        </Button> : null }
                 </div>
             </div>
             {/* <Button 
