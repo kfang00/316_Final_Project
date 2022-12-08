@@ -6,7 +6,6 @@ import { FastForward, FastRewind, PlayArrow, Stop } from '@mui/icons-material';
 
 function Player() {
     const { store } = useContext(GlobalStoreContext);
-    const [ isPaused, setPaused ] = useState(false);
 
     let player = null;
 
@@ -21,12 +20,27 @@ function Player() {
 
     function handleClickPause(event) {
         event.stopPropagation();
-        player.pauseVideo();
+        if (player !== null) {
+            try{player.pauseVideo();}
+            catch{player.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*')}
+            
+        } else {
+            player = document.getElementById("youtube-player");
+            player.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*')
+        }
+        
     }
 
     function handleClickPlay(event) {
         event.stopPropagation();
-        player.playVideo();
+        if (player !== null) {
+            try{player.playVideo();}
+            catch{player.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*')}
+            
+        } else {
+            player = document.getElementById("youtube-player");
+            player.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*')
+        }
     }
 
     function handleClickForward(event) {
@@ -60,7 +74,7 @@ function Player() {
     return (
         <div>
             {(store.currentList !== null && store.getPlaylistSize() > 0 && store.currentSong === null) ? 
-                <YouTube isPaused = {isPaused} videoId={store.currentList.songs[store.currentSongIndex].youTubeId} opts={opts} onReady = {onPlayerReady} onStateChange={handleChange}/>
+                <YouTube id = "youtube-player" videoId={store.currentList.songs[store.currentSongIndex].youTubeId} opts={opts} onReady = {onPlayerReady} onStateChange={handleChange}/>
                 : <div style = {{height: "200px", backgroundColor: "#f7f7f7"}}></div>            
             }       
             <Box style = {{margin: "0px 8px"}}>

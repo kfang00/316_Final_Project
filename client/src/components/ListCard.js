@@ -20,6 +20,7 @@ function ListCard(props) {
 
     let cardStylePublished = { margin: "6px 2% 15px 2%", width: '96%', fontSize: '22pt', backgroundColor: "#d4f4fc", borderRadius: 10, marginBottom: 15}
     let cardStyleNotPublished = { margin: "6px 2% 15px 2%", width: '96%', fontSize: '22pt', backgroundColor: "white", borderRadius: 10, marginBottom: 15}
+    let cardStylePlaying = { margin: "6px 2% 15px 2%", width: '96%', fontSize: '22pt', backgroundColor: "#f0e1e3", borderRadius: 10, marginBottom: 15}
 
     function handleLoadList(event, id) {
         event.stopPropagation();
@@ -204,7 +205,7 @@ function ListCard(props) {
                     key={idNamePair._id}
                     className={selectClass}
                     sx={{ display: 'flex', p: 1, flexDirection: "column" }}
-                    style={cardStylePublished}
+                    style={(store.currentList !== null && idNamePair._id === store.currentList._id) ? cardStylePlaying : cardStylePublished}
                     button
                     onClick={handleClickListItem}
                 >
@@ -232,7 +233,7 @@ function ListCard(props) {
                     key={idNamePair._id}
                     className={selectClass}
                     sx={{ display: 'flex', p: 1, flexDirection: "column" }}
-                    style={cardStyleNotPublished}
+                    style={(store.currentList !== null && idNamePair._id === store.currentList._id) ? cardStylePlaying : cardStyleNotPublished}
                     button
                     onClick={handleClickListItem}
                 >
