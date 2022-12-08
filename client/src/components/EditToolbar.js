@@ -35,6 +35,11 @@ function EditToolbar() {
         store.publishList();
     }
 
+    function handleDuplicate(event) {
+        event.stopPropagation();
+        store.duplicate();
+    }
+
     async function handleDeleteList(event) {
         event.stopPropagation();
         store.markListForDeletion(store.currentList._id);
@@ -98,6 +103,7 @@ function EditToolbar() {
                         <Button 
                             variant="contained"
                             // className="toolbar-button"
+                            onClick={handleDuplicate}
                             style = {{fontFamily: "Lexend Exa", borderRadius: "10px", fontSize: "8pt", margin: "5px", boxShadow: "none"}}>
                             Duplicate
                         </Button> : null }
