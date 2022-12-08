@@ -45,6 +45,7 @@ function SongCard(props) {
     }
 
     let cardClass = "list-card unselected-list-card";
+    let cardColor = store.currentSongIndex === index ? "#e8b3be" : "#aedae6";
     return (
         <div
             key={index}
@@ -57,6 +58,7 @@ function SongCard(props) {
             onDrop={handleDrop}
             draggable="true"
             onClick={handleClick}
+            style = {{backgroundColor: cardColor}}
         >
             {index + 1}.
             <a

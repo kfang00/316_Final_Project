@@ -37,7 +37,7 @@ function WorkspaceScreen() {
                 store.currentList.isPublished ? 
                 <div className = "published-workspace">
                     { store.currentList.songs.map((song, index) => (
-                        <Typography style = {{padding: "5px 0px", fontFamily: "Lexend Exa"}}>{`${index + 1}. ${song.title}`}</Typography>
+                        <Typography style = {{padding: "5px 0px", fontFamily: "Lexend Exa", color: store.currentSongIndex === index ? "#e8b3be" : "white"}}>{`${index + 1}. ${song.title}`}</Typography>
                     )) } 
                 </div>
                  : store.currentList.songs.map((song, index) => (

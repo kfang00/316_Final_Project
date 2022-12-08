@@ -211,7 +211,7 @@ body {
 
 #home-layout {
   display: grid;
-  grid-template-columns: 62% 38%;
+  grid-template-columns: 62% 36%;
 }
 
 #home-search-bar {

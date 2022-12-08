@@ -3,10 +3,10 @@ import { GlobalStoreContext } from '../store'
 import AuthContext from '../auth';
 import ListCard from './ListCard.js'
 import MUIDeleteModal from './MUIDeleteModal'
-
-import List from '@mui/material/List';
-import { AppBar, Toolbar, Button, TextField, Box, Menu, MenuItem } from '@mui/material';
+import { AppBar, Toolbar, Button, TextField, Box, Menu, MenuItem, Tab, List, Tabs } from '@mui/material';
 import { HomeOutlined, GroupsOutlined, PersonOutlineOutlined, SortOutlined } from '@mui/icons-material';
+import Player from './Player';
+import Comments from './Comments';
 /*
     This React component lists all the top5 lists in the UI.
     
@@ -16,6 +16,7 @@ const HomeScreen = () => {
     const { auth } = useContext(AuthContext);
     const { store } = useContext(GlobalStoreContext);
     const [ searchText, setSearchText ] = useState(store.searchText);
+    const [tab, setTab] = useState(0);
 
     // The menu's anchor element, i.e. where it will appear
     const [anchorEl, setAnchorEl] = useState(null);
@@ -56,6 +57,14 @@ const HomeScreen = () => {
     // Responds to click away from menu, which closes it
     const handleMenuClose = () => {
         setAnchorEl(null);
+    }
+
+    const handleClickPlayer = () => {
+        setTab(0);
+    }
+
+    const handleClickComments = () => {
+        setTab(1);
     }
     
     // Responds to click on "Name (A - Z)" - calls store.sortLists("name")
@@ -206,8 +215,12 @@ const HomeScreen = () => {
                         </div>
                     </div>
                 </Box>
-                <Box>
-                    <div>Hello</div>
+                <Box style = {{marginTop: 15, padding: "10px 15px 5px 15px", backgroundColor: "white"}}>
+                    <Tabs value={tab} indicatorColor="primary" textColor="primary" style={{marginBottom: 15}}>
+                        <Tab style = {{fontFamily: "Lexend Exa", fontSize: "9pt"}} label = "Player" onClick={handleClickPlayer}/>
+                        <Tab style = {{fontFamily: "Lexend Exa", fontSize: "9pt"}} label = "Comments" onClick={handleClickComments}/>
+                    </Tabs>
+                    {tab === 0 ? <Player /> : <Comments />}
                 </Box>
             </div>
         </div>)

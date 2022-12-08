@@ -29,7 +29,7 @@ export default function MUIEditSongModal() {
             artist: artist,
             youTubeId: youTubeId
         };
-        store.addUpdateSongTransaction(store.currentSongIndex, newSongData);        
+        store.addUpdateSongTransaction(store.currentSongIndex, newSongData);  
     }
 
     function handleCancelEditSong(event) {
